@@ -1,0 +1,17 @@
+unsigned long tiempo1 = 0;
+unsigned long tiempo2 = 0;
+
+void setup() {
+  Serial.begin(9600);
+  attachInterrupt(digitalPinToInterrupt(2), boton, CHANGE);
+}
+
+void loop() {}
+
+void boton() {
+  tiempo1 = millis();
+  if ((tiempo1 - tiempo2) > 2000){
+    tiempo2 = tiempo1;
+    Serial.println("InterrupcionActivada");
+  }
+}
