@@ -1,0 +1,39 @@
+const int Echo = 6;
+const int Trigger = 7; 
+int buzzer= 12;
+int led = 13;
+float Distancia;
+long Tiempo;
+
+unsigned long tiempo1 = 0;
+unsigned long tiempo2 = 0;
+
+const int pin = 2;
+
+void setup(){
+  Serial.begin(9600);
+  pinMode(Trigger, OUTPUT);
+  pinMode(Echo, INPUT);
+  pinMode(led, OUTPUT);
+  attachInterrupt(digitalPinToInterrupt(pin),pir,RISING);
+}
+
+void loop(){
+  digitalWrite(Trigger, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(Trigger, LOW);
+  Tiempo = (pulseIn(Echo, HIGH)/2);
+  
+  Distancia = float(Tiempo * 0.0343);
+  Serial.print("la distancia es ");
+  Serial.print(Distancia);
+  Serial.println("cm");
+}
+
+void pir(){
+  Serial.println("sensor activado");
+  digitalWrite(led,HIGH);
+  digitalWrite(buzzer, HIGH);
+  Serial.println("encendido");
+  delay(1000);
+}
